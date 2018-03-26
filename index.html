@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>San Francisco PD Dispatch Response Analysis - Daniel Liu</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom fonts for this template -->
+    <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
+
+    <!-- Custom styles for this template -->
+    <link href="css/agency.min.css" rel="stylesheet">
+
+  </head>
+
+  <body id="page-top">
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+      <div class="container">
+        <a class="navbar-brand js-scroll-trigger" href="#page-top">SFPD Dispatch Services</a>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          Menu
+          <i class="fa fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav text-uppercase ml-auto">
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="#visuals">Data Visuals</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="#predict">Dispatch Predictor</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="#longest">Longest Dispatch</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="#heatmap">Heat Map</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="#crime">Crime Correlation</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="#service">Future Service</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Header -->
+    <header class="masthead">
+      <div class="container">
+        <div class="intro-text">
+          <div class="intro-lead-in">SFPD Dispatch Response Analysis</br></br>By Daniel Liu</div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Services -->
+    <section id="visuals">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12 text-center">
+            <h2 class="section-heading text-uppercase">Data Visualizations</h2>
+            <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
+          </div>
+        </div>
+
+        <div class="timeline-v">
+          <div class="v">
+            <h6>1) Graph the top SF zipcodes from which emergency calls are made</h6></br>
+          </div>
+          <img class = "visual" src="img/zipcodes.png" width=65%>
+        </div></br></br>
+
+        <div class="timeline-v">
+          <div class="v">
+            <h6>2) Graph all received times and show what time of the day has the most dispatches needed, on averagae</h6></br>
+          </div>
+          <img class = "visual" src="img/tod.png" width=40%>
+        </div></br></br>
+
+        <div class="timeline-v">
+          <div class="v">
+            <h6>3) Display the relative percentage of different call type groups: Non-life-threatening, Potentially life-threatening, Alarm, Fire</h6></br>
+          </div>
+          <img class = "visual" src="img/pie2.png" width=55%>
+        </div>
+      </div>
+    </section>
+
+    <section id="predict">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12 text-center">
+            <h2 class="section-heading text-uppercase">Predicting Dispatch Response</h2>
+            <h3 class="section-subheading text-muted">Given an address and time, what is the most likely dispatch to be required?</h3>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-12">
+            <form id="contactForm">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <h6>Latitude:*</h6>
+                    <input class="form-control" id="lat" type="text" placeholder="37.0" name = "lat" required data-validation-required-message="Please enter a latitude.">
+                    <p class="help-block text-danger"></p>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <h6>Longitude:*</h6>
+                    <input class="form-control" id="long" type="text" placeholder="-122.0" name = "long" required data-validation-required-message="Please enter a longitude.">
+                    <p class="help-block text-danger"></p>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <h6>Time:*</h6>
+                    <input class="form-control" id="time" type = "text" placeholder="2018-03-26 12:00:0.000000 UTC" name = "time" required data-validation-required-message="Please enter a time.">
+                    <p class="help-block text-danger"></p>
+                  </div>
+                </div>
+                <div class="clearfix"></div>
+                <div class="col-lg-12 text-center">
+                  <div id="success"></div>
+                  <button id="calcButton" class="btn btn-primary btn-xl text-uppercase" type="button">Calculate</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+        </br></br>
+        <table id = "results">
+          <tr>
+              <th style="width:15%;">Latitude</th>
+              <th style="width:15%;">Longitude</th>
+              <th style="width:15%;">Time</th>
+              <th style="width:15%;">Predicted Dispatch Service</th>
+          </tr>
+</table>
+      </div>
+    </section>
+
+    <section id="longest">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12 text-center">
+            <h2 class="section-heading text-uppercase">Longest dispatch time</h2>
+            <h3 class="section-subheading text-muted">Which areas take the longest time to dispatch to on average? How can this be reduced?</h3>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-12">
+            <ul class="timeline">
+              <li>
+                <div class="timeline-image">
+                  <img class="rounded-circle img-fluid" src="img/about/4.jpg" alt=""/>
+                </div>
+                <div class="timeline-panel">
+                  <div class="timeline-heading">
+                    <h4>Visitacion Valley and Portola</h4>
+                    <h4 class="subheading">Zipcode: 94134</h4>
+                  </div>
+                  <div class="timeline-body">
+                    <p class="text-muted">I implemented a function that analyzes the data and compares the dispatch time and response time and found the area with the largest 
+                                        difference. The area that had the largest dispatch time was Visitacion Valley and Portola. We can reduce the dispatch time by giving higher priority to regions that have a long dispatch time. Additionally, the majority of the dispatch calls are for medical reasons, hence medical personnels should familiarize themselves with traffic patterns and local road systems. </p>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="bg-light" id="heatmap">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12 text-center">
+            <h2 class="section-heading text-uppercase">Heat Map</h2>
+            <h3 class="section-subheading text-muted">A heat map visualization of emergency calls made throughout the city of SF.</h3>
+          </div>
+        </div>
+        <iframe src="heatplot.html" width=100% height="500" frameborder="0" style="border:0" allowfullscreen></iframe>
+            
+      </div>
+    </section>
+
+    <section class="bg-light" id="crime">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12 text-center">
+            <h2 class="section-heading text-uppercase">Crime Correlation</h2>
+            <h3 class="section-subheading text-muted">Based on the type of dispatch and the frequency of dispatch, what is the most calm and safe neighborhood in the city?</h3>
+          </div>
+        </div>
+        <ul class="timeline">
+          <li>
+            <div class="timeline-image">
+              <img class="rounded-circle img-fluid" src="img/about/2.jpg" alt="">
+            </div>
+            <div class="timeline-panel">
+              <div class="timeline-heading">
+                <h4>PRESIDIO</h4>
+              </div>
+              <div class="timeline-body">
+                <p class="text-muted">My algorithm analyzed the data and found the area with the least occurences of dispatches. The safest area that I found that had 
+                                      the least dispatches was the Presidio neighborhood.</p>
+              </div>
+            </div>
+          </li>
+        </ul>
+    </section>
+
+    <section id="service">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12 text-center">
+            <h2 class="section-heading text-uppercase">Preparing for the Future</h2>
+            <h3 class="section-subheading text-muted">Which areas are experiencing the greatest increase in dispatch calls? </br>Where and what type of dispatch service would you place to help with the rate of increasing calls?</h3>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-12">
+            <ul class="timeline">
+              <li>
+                <div class="timeline-image">
+                  <img class="rounded-circle img-fluid" src="img/about/1.jpg" alt="">
+                </div>
+                <div class="timeline-panel">
+                  <div class="timeline-heading">
+                    <h4>TwinPeaks-Glen Park and Western Addition/Japantown</h4>
+                  </div>
+                  <div class="timeline-body">
+                    <p class="text-muted">My algorithm examined the data and compared the first three days of dispatch calls with all 12 dadys of dispatch calls for each zip code and saved
+                                          the difference. It then returns the two areas with the largest inrease in dispatch calls. The results I got were Twinpeaks-Glen Park and Western
+                                          Addition/Japantown. The type of dispatch service most needed in those two areas were both medical incident, possibly indicating that moer ambulances and medical personnel are needed in these two areas.  </p>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- Footer -->
+    <footer>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-4">
+            <span class="copyright">&copy; Daniel Liu 2018 - Capital One Summit Challenge</span>
+          </div>
+        </div>
+      </div>
+    </footer>
+ 
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Plugin JavaScript -->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Contact form JavaScript -->
+    <script src="js/jqBootstrapValidation.js"></script>
+    <!-- <script src="js/contact_me.js"></script> -->
+
+    <!-- Custom scripts for this template -->
+    <script src="js/agency.min.js"></script>
+    <script src="js/sf.js"></script>
+
+  </body>
+
+</html>
